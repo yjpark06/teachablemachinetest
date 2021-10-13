@@ -59,10 +59,16 @@
         async function predict() {
             // predict can take in an image, video or canvas html element
             const prediction = await model.predict(webcam.canvas);
-            for (let i = 0; i < maxPredictions; i++) {
-                const classPrediction =
-                    prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                labelContainer.childNodes[i].innerHTML = classPrediction;
+            if (prediction[0].className == '이탈리아(플로렌스)' && prediction[0].probability.toFixed(2) > 0.60) {
+                window.location.href = "./이탈리아_플로렌스.html";
+            } else if (prediction[1].className == '노르웨이' && prediction[1].probability.toFixed(2) > 0.60) {
+                window.location.href = "./노르웨이.html";
+            } else if (prediction[2].className == '그리스(산토리니)' && prediction[2].probability.toFixed(2) > 0.60) {
+                window.location.href = "./그리스_산토리니.html";
+            } else if (prediction[3].className == '미국(하와이)' && prediction[3].probability.toFixed(2) > 0.60) {
+                window.location.href = "./미국_하와이.html";
+            } else {
+                window.location.href = "./fail.html";
             }
         }
     </script>
